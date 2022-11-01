@@ -1,0 +1,2 @@
+docker network create hw2
+docker run --network hw2
