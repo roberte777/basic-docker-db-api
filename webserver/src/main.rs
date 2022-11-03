@@ -35,7 +35,7 @@ async fn handler(pool: web::Data<Pool>) -> impl Responder {
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     let mut pool = Config::new();
-    pool.host = Some("localhost".to_string());
+    pool.host = Some("db".to_string());
     pool.port = Some(5432);
     pool.dbname = Some("postgres".to_string());
     pool.user = Some("postgres".to_string());
@@ -47,9 +47,9 @@ async fn main() -> std::io::Result<()> {
             .app_data(web::Data::new(pool.clone()))
             .route("/", web::get().to(handler))
     })
-        .bind(("127.0.0.1", 8080))?
+        .bind(("0.0.0.0", 8080))?
         .run();
-    println!("Server running at http://{}/", "127.0.0.1");
+    println!("Server running at http://{}/","0.0.0.0:8080");
 
     server.await
 }
